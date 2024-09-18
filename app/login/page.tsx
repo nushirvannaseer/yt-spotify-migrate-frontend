@@ -6,7 +6,7 @@ export default function Login({ google = false, spotify =false }) {
       {google && (
         <button
           onClick={async () => {
-            window.location.href = "http://localhost:8888/google-login";
+            window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/google/login`
           }}
         >
           Login with Google
@@ -15,33 +15,12 @@ export default function Login({ google = false, spotify =false }) {
       {spotify && (
         <button
           onClick={async () => {
-            window.location.href = "http://localhost:8888/spotify-login";
+            window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/login`;
           }}
         >
           Login with Spotify
         </button>
       )}
-      <button
-        onClick={async () => {
-          const response = await fetch(
-            "http://localhost:8888/get-yt-playlists",
-            {
-              credentials: "include",
-            }
-          );
-          console.log(response);
-        }}
-      >
-        Generate Playlist
-      </button>
-      <button
-        onClick={async () => {
-          const response = await fetch("http://localhost:8888/test");
-          console.log(response);
-        }}
-      >
-        Test
-      </button>
     </div>
   );
 }

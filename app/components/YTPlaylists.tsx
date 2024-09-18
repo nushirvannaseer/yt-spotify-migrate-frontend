@@ -1,27 +1,34 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { getYoutubeMusicPlaylists, getYTPlaylistSongs } from "../lib/api/youtube-music";
+import { getYoutubeMusicPlaylists } from "../lib/api/youtube-music";
+import { YouTubePlaylistResponse, YouTubePlaylistItem } from "../types/ytmusic";
 
 const YTPlaylists = () => {
-  const [playlists, setPlaylists] = useState(null);
+  const [playlists, setPlaylists] = useState<YouTubePlaylistResponse | null>(
+    null
+  );
 
   const fetchYoutubeMusicPlaylists = async () => {
-    console.log("Fetching playlists");
     const data = await getYoutubeMusicPlaylists();
-    setPlaylists(data);
-    console.log(data) 
+    setPlaylists({ items: data } as YouTubePlaylistResponse);
   };
   useEffect(() => {
     fetchYoutubeMusicPlaylists();
   }, []);
 
-  return <div className="flex flex-col gap-2 justify-center items-center">
-    <h1 className="text-2xl font-bold">YouTube Music Playlists</h1>
-    {playlists?.map((playlist: any) => (
-        <div className="p-2 bg-gray-200 rounded-md" key={playlist.playlistId}><span className="cursor-pointer text-lg font-bold text-black">{playlist.title}</span></div>
-    ))}
-  </div>;
+  return (
+    <div className="flex flex-col gap-2 justify-center items-center">
+      <h1 className="text-2xl font-bold">YouTube Music Playlists</h1>
+      {playlists?.items?.map((playlist: YouTubePlaylistItem) => (
+        <div className="p-2 bg-gray-200 rounded-md" key={playlist.playlistId}>
+          <span className="cursor-pointer text-lg font-bold text-black">
+            {playlist.title}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default YTPlaylists;
