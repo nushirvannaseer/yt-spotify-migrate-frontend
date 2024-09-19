@@ -3,21 +3,15 @@
 import React, { useEffect, useState } from "react";
 import { getYoutubeMusicPlaylists } from "../lib/api/youtube-music";
 import { YouTubePlaylistItem } from "../types/ytmusic";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import YTMusic from "@/components/svg/ytmusic.svg";
+import PlaylistItem from "./PlaylistItem";
+import { useRouter } from "next/navigation";
 
 const YTPlaylists = () => {
   const [playlists, setPlaylists] = useState<YouTubePlaylistItem[] | null>(
     null
   );
+  const router = useRouter();
 
   const fetchYoutubeMusicPlaylists = async () => {
     const data = await getYoutubeMusicPlaylists();
@@ -28,30 +22,32 @@ const YTPlaylists = () => {
   }, []);
 
   return (
-    <div className="flex flex-col gap-2 justify-center items-center">
-      <h1 className="text-2xl font-bold text-red-500 flex items-center gap-2">
+    <div className="flex flex-col justify-center items-center  rounded-xl pt-5">
+      <div className="flex flex-row gap-2 mb-2 justify-center items-center pt-5 pb-5 w-full h-full border-b shadow-xl shadow-red-950 border-red-950">
         <YTMusic className="w-10 h-10" />
-        YouTube Music
-      </h1>
-      <TableCaption>A list of your YouTube Music playlists.</TableCaption>
-      <Table className="max-h-[1024px]w-full hover:cursor-pointer">
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-40 text-red-500">Title</TableHead>
-            <TableHead className="text-red-500">Description</TableHead>
-            <TableHead className="text-red-500">Owner</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
+        <h1 className="text-2xl font-bold text-red-500 flex items-center gap-2">
+          YouTube Music
+        </h1>
+      </div>
+      <div className="p-5 mt-0 w-full h-[70vh] overflow-y-auto ">
+        <div className="my-2">
           {playlists?.map((playlist: YouTubePlaylistItem) => (
-            <TableRow className="hover:bg-[#c3352e]" key={playlist.playlistId}>
-              <TableCell className="font-medium">{playlist.title}</TableCell>
-              <TableCell>{playlist.description}</TableCell>
-              <TableCell>{playlist.author?.[0].name}</TableCell>
-            </TableRow>
+            <PlaylistItem
+              isSpotify={false}
+              key={playlist.playlistId}
+              image={playlist.thumbnails[0].url}
+              title={playlist.title}
+              description={playlist.description}
+              owner={playlist?.author?.[0].name || ""}
+              onClick={() =>
+                router.push(
+                  `/youtube-music/playlist/${playlist.playlistId}/${playlist.title}`
+                )
+              }
+            />
           ))}
-        </TableBody>
-      </Table>
+        </div>
+      </div>
     </div>
   );
 };
