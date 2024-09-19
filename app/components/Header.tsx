@@ -29,7 +29,7 @@ import { logout } from "../lib/api/logout";
 function Header({ user }: { user: UserSession }) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   return (
-    <div className="flex justify-between items-center p-2 border-b-[0.25px] ">
+    <div className="flex justify-between items-center p-2 border-b-[0.25px] mb-2">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
@@ -64,7 +64,10 @@ function Header({ user }: { user: UserSession }) {
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem
-                onClick={() => {logout(); window.location.reload()}}
+                onClick={() => {
+                  logout();
+                  window.location.reload();
+                }}
                 className="cursor-pointer hover:!bg-popover-foreground"
               >
                 <span className="text-white">Logout</span>

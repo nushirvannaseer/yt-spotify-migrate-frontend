@@ -19,3 +19,16 @@ export interface YouTubePlaylistItem {
   author?: YouTubeAuthor[]; // Optional, since some entries don't have 'author'
   count?: string; // Optional, since some entries don't have 'count'
 }
+
+export interface YouTubeSong {
+  id: string;
+  title: string;
+  artist: string;
+  album: string;
+  image: string;
+}
+
+export interface YouTubePlaylistSongsResponse {
+  playlist_name: string;
+  songs: YouTubeSong[];
+}

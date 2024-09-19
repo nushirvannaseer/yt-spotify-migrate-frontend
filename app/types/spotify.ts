@@ -62,3 +62,8 @@ export interface SpotifySong {
   album: string;
   image: string;
 }
+
+export interface SpotifyPlaylistSongsResponse {
+  playlist_name: string;
+  songs: SpotifySong[];
+}

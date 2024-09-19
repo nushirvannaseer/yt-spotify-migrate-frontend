@@ -1,3 +1,4 @@
+import { YouTubePlaylistSongsResponse } from "@/app/types/ytmusic";
 import axios from "axios";
 
 const getYoutubeMusicPlaylists = async () => {
@@ -23,7 +24,7 @@ const getYTPlaylistSongs = async (playlistId: string) => {
         withCredentials: true,
       }
     );
-    return response.data;
+    return response.data as YouTubePlaylistSongsResponse;
   } catch (error) {
     throw error;
   }

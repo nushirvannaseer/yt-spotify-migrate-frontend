@@ -22,7 +22,7 @@ const PlaylistItem = ({
       className={`min-h-32 max-h-32 my-3 p-3 rounded-lg hover:cursor-pointer hover:scale-[99%] transition-all duration-300 hover:shadow-md grid grid-cols-12 gap-2 w-full ${
         isSpotify
           ? "hover:shadow-green-950 hover:bg-green-900/5"
-          : "hover:shadow-red-500 hover:bg-red-500/5"
+          : "hover:shadow-red-950 hover:bg-red-500/5"
       }`}
     >
       <div className="col-span-3 m-auto">
