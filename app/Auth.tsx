@@ -3,6 +3,7 @@
 
 import useAuth from "./hooks/useAuth";
 import Login from "./login/page";
+import Header from "./components/Header";
 import { ErrorResponse } from "./types/errors";
 
 export default function Auth({children}: Readonly<{
@@ -30,5 +31,9 @@ export default function Auth({children}: Readonly<{
   if(user && 'google_token_info' in user && !('spotify_token_info' in user)) {
     return <Login spotify={true}/>
   }
-  return <>{children}</>
+
+  return <>
+    <Header user={user} />
+    {children}
+  </>
 }
