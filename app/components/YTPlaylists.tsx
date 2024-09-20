@@ -1,25 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getYoutubeMusicPlaylists } from "../lib/api/youtube-music";
 import { YouTubePlaylistItem } from "../types/ytmusic";
 import YTMusic from "@/components/svg/ytmusic.svg";
 import PlaylistItem from "./PlaylistItem";
 import { useRouter } from "next/navigation";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
 
 const YTPlaylists = () => {
-  const [playlists, setPlaylists] = useState<YouTubePlaylistItem[] | null>(
-    null
-  );
+  const { data: playlists, isLoading } = useQuery<YouTubePlaylistItem[]>({
+    queryKey: ["youtube-music-playlists"],
+    queryFn: getYoutubeMusicPlaylists,
+  });
   const router = useRouter();
-
-  const fetchYoutubeMusicPlaylists = async () => {
-    const data = await getYoutubeMusicPlaylists();
-    setPlaylists(data);
-  };
-  useEffect(() => {
-    fetchYoutubeMusicPlaylists();
-  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center rounded-xl pt-0">
@@ -29,6 +24,7 @@ const YTPlaylists = () => {
           YouTube Music
         </h1>
       </div>
+      {isLoading && <Loading fill="red-500" />}
       <div className="p-5 mt-0 w-full h-[70vh] overflow-y-auto ">
         <div className="my-2">
           {playlists?.map(

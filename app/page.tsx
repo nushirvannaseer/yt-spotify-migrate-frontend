@@ -1,5 +1,7 @@
+"use client";
 import YTPlaylists from "./components/YTPlaylists";
 import SpotifyPlaylists from "./components/SpotifyPlaylists";
+
 export default function Home() {
   return (
     <div className="grid grid-cols-12 justify-between h-full items-start gap-4 px-10 py-5">

@@ -13,7 +13,7 @@ export default function Auth({
 }>) {
   const { user, loading, error } = useAuth();
   if (loading) {
-    return <Loading />;
+    return <Loading fill="green-500" />;
   }
   if (error) {
     return <span>An error occurred: {(error as ErrorResponse).message}</span>;

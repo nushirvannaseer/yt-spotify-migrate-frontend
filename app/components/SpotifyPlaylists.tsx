@@ -1,25 +1,20 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { getSpotifyPlaylists } from "../lib/api/spotify";
 import { useRouter } from "next/navigation";
 import { SpotifyPlaylistItem, SpotifyPlaylistResponse } from "../types/spotify";
 import Spotify from "@/components/svg/spotify.svg";
 import PlaylistItem from "./PlaylistItem";
+import { useQuery } from "@tanstack/react-query";
+import Loading from "./Loading";
 
 const SpotifyPlaylists = () => {
-  const [playlists, setPlaylists] = useState<SpotifyPlaylistResponse | null>(
-    null
-  );
+  const { data: playlists, isLoading } = useQuery<SpotifyPlaylistResponse>({
+    queryKey: ["spotify-playlists"],
+    queryFn: getSpotifyPlaylists,
+  });
   const router = useRouter();
-
-  const fetchSpotifyPlaylists = async () => {
-    const data = await getSpotifyPlaylists();
-    setPlaylists(data as SpotifyPlaylistResponse);
-  };
-  useEffect(() => {
-    fetchSpotifyPlaylists();
-  }, []);
 
   return (
     <div className="flex flex-col justify-center items-center  rounded-xl pt-0">
@@ -29,6 +24,7 @@ const SpotifyPlaylists = () => {
           Spotify
         </h1>
       </div>
+      {isLoading && <Loading fill="green-500" />}
       <div className="p-5 mt-0 h-[70vh] overflow-y-auto ">
         <div className="my-2">
           {playlists?.items?.map((playlist: SpotifyPlaylistItem) => (

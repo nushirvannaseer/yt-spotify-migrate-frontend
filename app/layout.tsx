@@ -4,6 +4,7 @@ import "./globals.css";
 import Auth from "./Auth";
 import { ThemeProvider } from "./components/ThemeProvider";
 import { Toaster } from "@/components/ui/sonner";
+import QueryProvider from "./Providers/QueryProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -37,7 +38,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Auth>{children}</Auth>
+          <QueryProvider>
+            <Auth>{children}</Auth>
+          </QueryProvider>
         </ThemeProvider>
         <Toaster />
       </body>

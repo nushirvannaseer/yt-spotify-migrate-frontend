@@ -32,7 +32,7 @@ const getSpotifyPlaylistSongs = async (playlistId: string) => {
 };
 
 const migrateSpotifySongs = async (
-  songs: { songs: { name: string; artist: string }[] },
+  songs: { name: string; artist: string }[],
   yt_playlist_id?: string
 ) => {
   try {
