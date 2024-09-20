@@ -53,12 +53,10 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
       selectedSongs.find(
         (s) => s.name === song.name && s.artist === song.artist
       ) !== undefined;
-    console.log(song, isSelected);
     return isSelected;
   };
 
   const handleSongClick = (song: SpotifySong) => {
-    console.log(song, selectedSongs);
     if (isSongSelected(song)) {
       setSelectedSongs(
         selectedSongs.filter(

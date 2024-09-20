@@ -13,7 +13,6 @@ const PleaseWaitModal = ({
   setIsOpen: (isOpen: boolean) => void;
   migrateTo: "Spotify" | "YouTube Music";
 }) => {
-  console.log(migrateTo);
   return (
     <div className="flex justify-center items-center h-screen">
       {/* Modal */}
