@@ -15,6 +15,9 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isMigrating, setIsMigrating] = useState<boolean>(false);
+  const [selectedSongs, setSelectedSongs] = useState<
+    { name: string; artist: string }[]
+  >([]);
 
   const handleMigratePlaylist = async () => {
     setIsModalOpen(true);
@@ -44,8 +47,31 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
     return <Loading fill="red-500" />;
   }
 
+  const isSongSelected = (song: YouTubeSong) => {
+    return (
+      selectedSongs.find(
+        (s) => s.name === song.title && s.artist === song.artist
+      ) !== undefined
+    );
+  };
+
+  const handleSongClick = (song: YouTubeSong) => {
+    if (isSongSelected(song)) {
+      setSelectedSongs(
+        selectedSongs.filter(
+          (s) => s.name !== song.title && s.artist !== song.artist
+        )
+      );
+    } else {
+      setSelectedSongs([
+        ...selectedSongs,
+        { name: song.title, artist: song.artist },
+      ]);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center mx- h-full">
+    <div className="flex flex-col items-center mx- h-screen">
       <div className="flex flex-row w-full items-center justify-between my-5 px-2">
         <span className="text-2xl font-bold">
           Your Songs in{" "}
@@ -69,12 +95,18 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
       </div>
       <div className="grid grid-cols-12 justify-start items-start w-full">
         {playlistSongs?.songs?.map((song: YouTubeSong) => (
-          <div className="m-2 col-span-4" key={song.id}>
+          <div
+            className="m-2 col-span-4"
+            onClick={() => handleSongClick(song)}
+            key={song.id}
+          >
             <SongItem
               title={song.title}
               artist={song.artist}
               album={song.album}
               image={song.image}
+              isSelected={isSongSelected(song)}
+              isSpotify={false}
             />
           </div>
         ))}

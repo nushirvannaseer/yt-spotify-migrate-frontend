@@ -16,6 +16,9 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isMigrating, setIsMigrating] = useState<boolean>(false);
+  const [selectedSongs, setSelectedSongs] = useState<
+    { name: string; artist: string }[]
+  >([]);
 
   const handleMigratePlaylist = async () => {
     setIsModalOpen(true);
@@ -45,8 +48,33 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
     return <Loading fill="green-500" />;
   }
 
+  const isSongSelected = (song: SpotifySong) => {
+    const isSelected =
+      selectedSongs.find(
+        (s) => s.name === song.name && s.artist === song.artist
+      ) !== undefined;
+    console.log(song, isSelected);
+    return isSelected;
+  };
+
+  const handleSongClick = (song: SpotifySong) => {
+    console.log(song, selectedSongs);
+    if (isSongSelected(song)) {
+      setSelectedSongs(
+        selectedSongs.filter(
+          (s) => s.name !== song.name && s.artist !== song.artist
+        )
+      );
+    } else {
+      setSelectedSongs([
+        ...selectedSongs,
+        { name: song.name, artist: song.artist },
+      ]);
+    }
+  };
+
   return (
-    <div className="flex flex-col items-center mx-10 h-full">
+    <div className="flex flex-col items-center mx-10 h-screen">
       <div className="flex flex-row w-full items-center justify-between my-5 px-2">
         <span className="text-2xl font-bold">
           Your Songs in{" "}
@@ -67,13 +95,19 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
         </Button>
       </div>
       <div className="grid grid-cols-12 justify-start items-start w-full">
-        {playlistSongs?.songs?.map((song: SpotifySong) => (
-          <div className="m-2 col-span-4" key={song.id}>
+        {playlistSongs?.songs?.map((song: SpotifySong, index: number) => (
+          <div
+            onClick={() => handleSongClick(song)}
+            className="m-2 col-span-4"
+            key={song.id + song.name + song.artist + index}
+          >
             <SongItem
               title={song.name}
               artist={song.artist}
               album={song.album}
               image={song.image}
+              isSpotify={true}
+              isSelected={isSongSelected(song)}
             />
           </div>
         ))}
