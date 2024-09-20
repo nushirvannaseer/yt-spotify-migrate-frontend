@@ -71,7 +71,7 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   };
 
   return (
-    <div className="flex flex-col items-center mx- h-screen">
+    <div className="flex flex-col items-center mx-10 h-screen">
       <div className="flex flex-row w-full items-center justify-between my-5 px-2">
         <span className="text-2xl font-bold">
           Your Songs in{" "}
