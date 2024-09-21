@@ -65,12 +65,15 @@ function Header({ user }: { user: UserSession }) {
               <DropdownMenuItem
                 onClick={async () => {
                   try {
+                    console.log("Logging out");
                     await logout();
+                    console.log("Logged out");
                   } catch (error) {
                     toast.error(
                       "Failed to logout: " + (error as ErrorResponse).message
                     );
                   } finally {
+                    console.log("Reloading");
                     window.location.reload();
                   }
                 }}
