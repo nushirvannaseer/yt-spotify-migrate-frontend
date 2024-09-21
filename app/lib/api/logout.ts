@@ -1,9 +1,4 @@
-"use server";
-import { cookies } from "next/headers";
-
 export const logout = async () => {
-  await cookies().delete("session");
-  console.log("cookies", cookies().getAll());
   try {
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/logout`,
@@ -11,6 +6,9 @@ export const logout = async () => {
         credentials: "include",
       }
     );
+    document.cookie =
+      "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    console.log("Successfully logged out");
     console.log("Logout response", response);
   } catch (error) {
     console.error("Failed to logout:", error);
