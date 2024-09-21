@@ -66,11 +66,12 @@ function Header({ user }: { user: UserSession }) {
                 onClick={async () => {
                   try {
                     await logout();
-                    window.location.reload();
                   } catch (error) {
                     toast.error(
                       "Failed to logout: " + (error as ErrorResponse).message
                     );
+                  } finally {
+                    window.location.reload();
                   }
                 }}
                 className="cursor-pointer hover:!bg-popover-foreground"
