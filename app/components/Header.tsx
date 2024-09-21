@@ -60,7 +60,7 @@ function Header({ user }: { user: UserSession }) {
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-20 border-0 bg-primary rounded-lg">
+          <DropdownMenuContent className="w-20 border-0 bg-primary-foreground rounded-lg">
             <DropdownMenuGroup className=" rounded-lg">
               <DropdownMenuItem
                 onClick={async () => {

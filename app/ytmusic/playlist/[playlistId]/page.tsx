@@ -54,7 +54,7 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [selectedSongs, setSelectedSongs] = useState<
-    { name: string; artist: string }[]
+    { name: string; artist: string; id: string }[]
   >([]);
   const [playlistName, setPlaylistName] = useState<string>(
     playlistSongs?.playlist_name || ""
@@ -65,24 +65,16 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   }
 
   const isSongSelected = (song: YouTubeSong) => {
-    return (
-      selectedSongs.find(
-        (s) => s.name === song.title && s.artist === song.artist
-      ) !== undefined
-    );
+    return selectedSongs.find((s) => s.id === song.id) !== undefined;
   };
 
   const handleSongClick = (song: YouTubeSong) => {
     if (isSongSelected(song)) {
-      setSelectedSongs(
-        selectedSongs.filter(
-          (s) => s.name !== song.title && s.artist !== song.artist
-        )
-      );
+      setSelectedSongs(selectedSongs.filter((s) => s.id !== song.id));
     } else {
       setSelectedSongs([
         ...selectedSongs,
-        { name: song.title, artist: song.artist },
+        { name: song.title, artist: song.artist, id: song.id },
       ]);
     }
   };

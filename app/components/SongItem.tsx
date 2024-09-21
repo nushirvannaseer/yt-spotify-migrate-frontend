@@ -19,11 +19,17 @@ const SongItem = ({
   return (
     <div
       className={`flex flex-row gap-4 rounded-lg p-2 cursor-pointer ${
-        isSelected
-          ? isSpotify
-            ? "bg-green-600/30 hover:bg-green-600/40 "
-            : "bg-red-600/30 hover:bg-red-500/30 "
-          : "bg-primary"
+        isSpotify
+          ? `hover:shadow-md hover:shadow-green-500/20  ${
+              isSelected
+                ? " bg-green-500/20 hover:shadow-none hover:bg-green-600/10"
+                : ""
+            }`
+          : `hover:shadow-md hover:shadow-red-500/20 ${
+              isSelected
+                ? " bg-red-500/20 hover:shadow-none  hover:bg-red-600/10"
+                : ""
+            }`
       }`}
     >
       <Image

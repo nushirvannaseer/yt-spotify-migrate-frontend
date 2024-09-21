@@ -60,7 +60,7 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [selectedSongs, setSelectedSongs] = useState<
-    { name: string; artist: string }[]
+    { name: string; artist: string; id: string }[]
   >([]);
   const [playlistName, setPlaylistName] = useState<string>(
     playlistSongs?.playlist_name || ""
@@ -77,23 +77,17 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
 
   const isSongSelected = (song: SpotifySong) => {
     const isSelected =
-      selectedSongs.find(
-        (s) => s.name === song.name && s.artist === song.artist
-      ) !== undefined;
+      selectedSongs.find((s) => s.id === song.id) !== undefined;
     return isSelected;
   };
 
   const handleSongClick = (song: SpotifySong) => {
     if (isSongSelected(song)) {
-      setSelectedSongs(
-        selectedSongs.filter(
-          (s) => s.name !== song.name && s.artist !== song.artist
-        )
-      );
+      setSelectedSongs(selectedSongs.filter((s) => s.id !== song.id));
     } else {
       setSelectedSongs([
         ...selectedSongs,
-        { name: song.name, artist: song.artist },
+        { name: song.name, artist: song.artist, id: song.id },
       ]);
     }
   };

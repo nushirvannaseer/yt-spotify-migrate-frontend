@@ -85,7 +85,7 @@ const MigrateSongsDrawer: React.FC<MigrateSongsDrawerProps> = ({
               {selectedSongs.map((song, index) => (
                 <div
                   key={index}
-                  className="bg-primary flex flex-col w-[200px] p-4 rounded-md col-span-3"
+                  className="bg-primary-foreground flex flex-col w-[200px] p-4 rounded-md col-span-3"
                 >
                   <span className="text-md line-clamp-1 text-ellipsis font-semibold">
                     {song.name}
