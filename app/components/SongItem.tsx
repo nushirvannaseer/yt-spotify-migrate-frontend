@@ -7,7 +7,7 @@ const SongItem = ({
   album,
   image,
   isSelected = false,
-  isSpotify = false,
+  isSpotify = true,
 }: {
   title: string;
   artist: string;
@@ -18,12 +18,12 @@ const SongItem = ({
 }) => {
   return (
     <div
-      className={`flex flex-row gap-4 rounded-lg p-2 cursor-pointer hover:bg-green-900/5 bg-primary ${
+      className={`flex flex-row gap-4 rounded-lg p-2 cursor-pointer ${
         isSelected
           ? isSpotify
-            ? "hover:bg-green-600/40 bg-green-600/30"
-            : "hover:bg-red-500/30 bg-red-600/30"
-          : ""
+            ? "bg-green-600/30 hover:bg-green-600/40 "
+            : "bg-red-600/30 hover:bg-red-500/30 "
+          : "bg-primary"
       }`}
     >
       <Image

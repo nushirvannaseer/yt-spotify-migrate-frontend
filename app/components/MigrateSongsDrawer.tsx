@@ -33,7 +33,10 @@ const MigrateSongsDrawer: React.FC<MigrateSongsDrawerProps> = ({
   isSpotify = true,
 }) => {
   return (
-    <Drawer open={isDrawerOpen}>
+    <Drawer
+      open={isDrawerOpen}
+      onOpenChange={(open) => setIsDrawerOpen(open)} // Added this line
+    >
       <DrawerTrigger>
         <Button
           variant="outline"

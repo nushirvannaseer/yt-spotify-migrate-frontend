@@ -9,15 +9,11 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { Avatar } from "@radix-ui/react-avatar";
 import { AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { UserSession } from "../types/user";
-import {
-  DropdownMenu,
-  DropdownMenuSeparator,
-} from "@radix-ui/react-dropdown-menu";
+import { DropdownMenu } from "@radix-ui/react-dropdown-menu";
 import {
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -29,13 +25,15 @@ import { logout } from "../lib/api/logout";
 function Header({ user }: { user: UserSession }) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
   return (
-    <div className="flex justify-between items-center p-2 border-b-[0.25px] mb-2">
+    <div className="flex justify-between bg-gradient-to-r from-zinc-900 to-zinc-950 items-center p-2 border-b-[0.25px] border-zinc-800">
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
-              <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                Migrate
+              <NavigationMenuLink>
+                <span className="p-4 font-bold text-xl hover:bg-none text-zinc-300 ">
+                  Movezic
+                </span>
               </NavigationMenuLink>
             </Link>
           </NavigationMenuItem>
@@ -47,7 +45,10 @@ function Header({ user }: { user: UserSession }) {
         </span>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar onClick={() => setIsOpen(!isOpen)} className="relative">
+            <Avatar
+              onClick={() => setIsOpen(!isOpen)}
+              className="relative cursor-pointer"
+            >
               <AvatarImage
                 className="w-10 h-10 rounded-full"
                 src={user.current_user.image}
@@ -57,12 +58,8 @@ function Header({ user }: { user: UserSession }) {
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56 border bg-primary rounded-lg">
+          <DropdownMenuContent className="w-20 border-0 bg-primary rounded-lg">
             <DropdownMenuGroup className=" rounded-lg">
-              <DropdownMenuItem className="cursor-pointer hover:!bg-popover-foreground">
-                <span className="text-white">Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => {
                   logout();
