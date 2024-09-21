@@ -33,12 +33,12 @@ const getSpotifyPlaylistSongs = async (playlistId: string) => {
 
 const migrateSpotifySongs = async (
   songs: { name: string; artist: string }[],
-  yt_playlist_id?: string
+  yt_playlist_name?: string
 ) => {
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/spotify/migrate-songs`,
-      { songs, yt_playlist_id: yt_playlist_id || null },
+      { songs, yt_playlist_name: yt_playlist_name || null },
       {
         withCredentials: true,
       }

@@ -30,4 +30,41 @@ const getYTPlaylistSongs = async (playlistId: string) => {
   }
 };
 
-export { getYoutubeMusicPlaylists, getYTPlaylistSongs };
+const migrateYTPlaylist = async (playlistId: string) => {
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/ytmusic/migrate-playlist`,
+      {
+        params: { playlistId },
+        withCredentials: true,
+      }
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+const migrateYTSongs = async (
+  playlistName: string,
+  songs: { name: string; artist: string }[]
+) => {
+  try {
+    const response = await axios.post(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/ytmusic/migrate-selected-songs`,
+      { sp_playlist_name: playlistName, songs },
+      { withCredentials: true }
+    );
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export {
+  getYoutubeMusicPlaylists,
+  getYTPlaylistSongs,
+  migrateYTPlaylist,
+  migrateYTSongs,
+};
