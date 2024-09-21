@@ -81,7 +81,7 @@ const MigrateSongsDrawer: React.FC<MigrateSongsDrawerProps> = ({
               defaultValue={playlistName}
               onChange={(e) => setPlaylistName(e.target.value)}
             />
-            <div className="flex flex-row flex-wrap items-center gap-4 justify-start">
+            <div className="flex flex-row flex-wrap items-center bg-neutral-800/90 rounded-lg p-4 gap-4 justify-center max-h-[40vh] overflow-auto">
               {selectedSongs.map((song, index) => (
                 <div
                   key={index}
