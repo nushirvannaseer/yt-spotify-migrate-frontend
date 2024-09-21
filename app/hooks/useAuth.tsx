@@ -9,9 +9,12 @@ const useAuth = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await fetch("http://localhost:8888/session", {
-          credentials: "include",
-        });
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/session`,
+          {
+            credentials: "include",
+          }
+        );
         const data = await response.json();
         setUser(data);
       } catch (error) {
