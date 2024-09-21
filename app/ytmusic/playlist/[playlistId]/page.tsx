@@ -122,7 +122,7 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
                 isMigrating ? "animate-spin" : ""
               }`}
             />
-            {isMigrating ? "Migrating..." : "Migrate to YouTube Music"}
+            {isMigrating ? "Migrating..." : "Migrate All to Spotify"}
           </Button>
         </div>
       </div>
