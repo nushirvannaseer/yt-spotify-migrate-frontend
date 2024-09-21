@@ -1,7 +1,7 @@
 "use client";
 
 import useAuth from "./hooks/useAuth";
-import Login from "./login/page";
+import Login from "./components/login/login";
 import Header from "./components/Header";
 import { ErrorResponse } from "./types/errors";
 import Loading from "./components/Loading";
