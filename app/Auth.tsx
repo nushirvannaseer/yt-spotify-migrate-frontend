@@ -3,8 +3,8 @@
 import useAuth from "./hooks/useAuth";
 import Login from "./components/login/login";
 import Header from "./components/Header";
-import { ErrorResponse } from "./types/errors";
 import Loading from "./components/Loading";
+import { toast } from "sonner";
 
 export default function Auth({
   children,
@@ -15,9 +15,12 @@ export default function Auth({
   if (loading) {
     return <Loading fill="green-500" />;
   }
-  if (error) {
-    return <span>An error occurred: {(error as ErrorResponse).message}</span>;
+
+  if ((!user || Object.keys(user!).length === 0) && error) {
+    toast.error("You are not logged in to the app");
+    return <Login google={true} spotify={true} />;
   }
+
   if (!user || Object.keys(user!).length === 0) {
     return <Login google={true} spotify={true} />;
   }

@@ -21,6 +21,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logout } from "../lib/api/logout";
+import { toast } from "sonner";
+import { ErrorResponse } from "../types/errors";
 
 function Header({ user }: { user: UserSession }) {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
@@ -61,9 +63,15 @@ function Header({ user }: { user: UserSession }) {
           <DropdownMenuContent className="w-20 border-0 bg-primary rounded-lg">
             <DropdownMenuGroup className=" rounded-lg">
               <DropdownMenuItem
-                onClick={() => {
-                  logout();
-                  window.location.reload();
+                onClick={async () => {
+                  try {
+                    await logout();
+                    window.location.reload();
+                  } catch (error) {
+                    toast.error(
+                      "Failed to logout: " + (error as ErrorResponse).message
+                    );
+                  }
                 }}
                 className="cursor-pointer hover:!bg-popover-foreground"
               >
