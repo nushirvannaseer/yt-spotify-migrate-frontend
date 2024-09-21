@@ -37,7 +37,9 @@ const MigrateSongsDrawer: React.FC<MigrateSongsDrawerProps> = ({
       open={isDrawerOpen}
       onOpenChange={(open) => setIsDrawerOpen(open)} // Added this line
     >
-      <DrawerTrigger>
+      <DrawerTrigger
+        disabled={isMigratingSelectedSongs || selectedSongs.length === 0}
+      >
         <Button
           variant="outline"
           disabled={isMigratingSelectedSongs || selectedSongs.length === 0}
