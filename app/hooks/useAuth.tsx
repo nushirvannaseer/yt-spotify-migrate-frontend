@@ -21,7 +21,6 @@ const useAuth = () => {
         );
         const data = await response.json();
         if (data.spotify_token_info && !data.current_user) {
-          console.log("spotify token info present but user not logged in");
           data.spotify_token_info = null;
           document.cookie =
             "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -57,11 +56,10 @@ const useAuth = () => {
         setUser(null);
       } finally {
         setLoading(false);
-        console.log("user", user);
       }
     };
     fetchUser();
-  }, [user]);
+  }, []);
   return { user, loading, error };
 };
 
