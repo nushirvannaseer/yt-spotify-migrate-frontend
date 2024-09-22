@@ -41,24 +41,26 @@ function Header({ user }: { user: UserSession }) {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
-      <div className="flex items-center gap-2 mr-4">
-        <span className="text-sm font-medium leading-none ">
-          {user.current_user.name}
-        </span>
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex flex-row items-center gap-2 mr-4 cursor-pointer hover:bg-zinc-800 rounded-md p-2"
+      >
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Avatar
-              onClick={() => setIsOpen(!isOpen)}
-              className="relative cursor-pointer"
-            >
-              <AvatarImage
-                className="w-10 h-10 rounded-full"
-                src={user.current_user.image}
-              />
-              <AvatarFallback>
-                {user.current_user.name.charAt(0)}
-              </AvatarFallback>
-            </Avatar>
+            <div className="relative flex flex-row items-center gap-2 cursor-pointer">
+              <span className="text-sm font-medium leading-none ">
+                {user.current_user.name}
+              </span>
+              <Avatar className="relative cursor-pointer">
+                <AvatarImage
+                  className="w-10 h-10 rounded-full"
+                  src={user.current_user.image}
+                />
+                <AvatarFallback className="w-10 h-10 rounded-full">
+                  {user.current_user.name.charAt(0)}
+                </AvatarFallback>
+              </Avatar>
+            </div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-20 border-0 bg-primary-foreground hover:!bg-primary-foreground/90 rounded-lg">
             <DropdownMenuGroup className="hover:!bg-primary-foreground/90 rounded-lg">

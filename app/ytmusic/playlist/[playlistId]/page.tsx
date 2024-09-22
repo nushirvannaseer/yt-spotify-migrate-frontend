@@ -16,11 +16,18 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Playlist = ({ params }: { params: { playlistId: string } }) => {
-  const { data: playlistSongs, isLoading: isFetchingPlaylistSongs } =
-    useQuery<YouTubePlaylistSongsResponse>({
-      queryKey: ["yt-playlist-songs", params.playlistId],
-      queryFn: () => getYTPlaylistSongs(params.playlistId),
-    });
+  const {
+    data: playlistSongs,
+    isLoading: isFetchingPlaylistSongs,
+    error,
+  } = useQuery<YouTubePlaylistSongsResponse>({
+    queryKey: ["yt-playlist-songs", params.playlistId],
+    queryFn: () => getYTPlaylistSongs(params.playlistId),
+  });
+
+  if (error) {
+    toast.error("Error fetching playlist: " + error.message);
+  }
 
   const { mutateAsync: migratePlaylistMutation, isPending: isMigrating } =
     useMutation({

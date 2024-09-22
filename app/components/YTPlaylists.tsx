@@ -8,13 +8,21 @@ import PlaylistItem from "./PlaylistItem";
 import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "./Loading";
+import { toast } from "sonner";
 
 const YTPlaylists = () => {
-  const { data: playlists, isLoading } = useQuery<YouTubePlaylistItem[]>({
+  const {
+    data: playlists,
+    isLoading,
+    error,
+  } = useQuery<YouTubePlaylistItem[]>({
     queryKey: ["youtube-music-playlists"],
     queryFn: getYoutubeMusicPlaylists,
   });
   const router = useRouter();
+  if (error) {
+    toast.error("Error fetching playlists: " + error.message);
+  }
 
   return (
     <div className="flex flex-col justify-center items-center rounded-xl pt-0">

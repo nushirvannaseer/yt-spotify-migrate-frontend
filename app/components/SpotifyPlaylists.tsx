@@ -8,14 +8,22 @@ import Spotify from "@/components/svg/spotify.svg";
 import PlaylistItem from "./PlaylistItem";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "./Loading";
+import { ErrorResponse } from "../types/errors";
+import { toast } from "sonner";
 
 const SpotifyPlaylists = () => {
-  const { data: playlists, isLoading } = useQuery<SpotifyPlaylistResponse>({
+  const {
+    data: playlists,
+    isLoading,
+    error,
+  } = useQuery<SpotifyPlaylistResponse>({
     queryKey: ["spotify-playlists"],
     queryFn: getSpotifyPlaylists,
   });
+  if (error && (error as ErrorResponse)) {
+    toast.error("Error fetching playlists: " + error.message);
+  }
   const router = useRouter();
-
   return (
     <div className="flex flex-col justify-center items-center  rounded-xl pt-0">
       <div className="flex flex-row gap-2 mb-2 justify-center items-center pt-5 pb-5 w-full h-full border-b shadow-xl shadow-green-950 border-green-900">

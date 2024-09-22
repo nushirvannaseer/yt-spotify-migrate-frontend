@@ -16,11 +16,18 @@ import React, { useState } from "react";
 import { toast } from "sonner";
 
 const Playlist = ({ params }: { params: { playlistId: string } }) => {
-  const { data: playlistSongs, isLoading } =
-    useQuery<SpotifyPlaylistSongsResponse>({
-      queryKey: ["spotify-playlist-songs", params.playlistId],
-      queryFn: () => getSpotifyPlaylistSongs(params.playlistId),
-    });
+  const {
+    data: playlistSongs,
+    isLoading,
+    error,
+  } = useQuery<SpotifyPlaylistSongsResponse>({
+    queryKey: ["spotify-playlist-songs", params.playlistId],
+    queryFn: () => getSpotifyPlaylistSongs(params.playlistId),
+  });
+
+  if (error) {
+    toast.error("Error fetching playlist: " + error.message);
+  }
 
   const { mutateAsync: migratePlaylistMutation, isPending: isMigrating } =
     useMutation({
