@@ -28,7 +28,7 @@ const useAuth = () => {
           throw new Error("Spotify token info present but user not logged in");
         }
         if (data.spotify_token_info) {
-          if (Date.now() <= data.spotify_token_info.expires_at) {
+          if (Date.now() >= data.spotify_token_info.expires_at) {
             const accessToken = await refreshSpotifyAccessToken({
               spotify_refresh_token: data.spotify_token_info.refresh_token,
             });
@@ -40,7 +40,7 @@ const useAuth = () => {
           }
         }
         if (data.google_token_info) {
-          if (Date.now() <= data.google_token_info.expires_at) {
+          if (Date.now() >= data.google_token_info.expires_at) {
             const accessToken = await refreshGoogleAccessToken({
               google_refresh_token: data.google_token_info.refresh_token,
             });
@@ -56,10 +56,11 @@ const useAuth = () => {
         setUser(null);
       } finally {
         setLoading(false);
+        console.log("user", user);
       }
     };
     fetchUser();
-  }, []);
+  }, [user]);
   return { user, loading, error };
 };
 
