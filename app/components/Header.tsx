@@ -33,7 +33,7 @@ function Header({ user }: { user: UserSession }) {
           <NavigationMenuItem>
             <Link href="/" legacyBehavior passHref>
               <NavigationMenuLink>
-                <span className="p-4 font-bold text-xl hover:bg-none text-zinc-300 ">
+                <span className="p-4  font-bold text-xl hover:bg-none text-zinc-300 ">
                   Movezic
                 </span>
               </NavigationMenuLink>
@@ -41,6 +41,7 @@ function Header({ user }: { user: UserSession }) {
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
+      <h1 className="text-xl font-bold ">Migrate your music</h1>
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex flex-row items-center gap-2 mr-4 cursor-pointer hover:bg-zinc-800 rounded-md p-2"
