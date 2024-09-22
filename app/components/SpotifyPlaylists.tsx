@@ -8,7 +8,6 @@ import Spotify from "@/components/svg/spotify.svg";
 import PlaylistItem from "./PlaylistItem";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "./Loading";
-import { ErrorResponse } from "../types/errors";
 import { toast } from "sonner";
 
 const SpotifyPlaylists = () => {
@@ -20,7 +19,7 @@ const SpotifyPlaylists = () => {
     queryKey: ["spotify-playlists"],
     queryFn: getSpotifyPlaylists,
   });
-  if (error && (error as ErrorResponse)) {
+  if (error) {
     toast.error("Error fetching playlists: " + error.message);
   }
   const router = useRouter();

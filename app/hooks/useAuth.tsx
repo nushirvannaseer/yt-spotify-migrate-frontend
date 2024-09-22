@@ -27,13 +27,14 @@ const useAuth = () => {
           setUser(data);
         }
         if (data.spotify_token_info) {
+          console.log(Date.now() >= data.spotify_token_info.expires_at);
           if (Date.now() >= data.spotify_token_info.expires_at) {
             const accessToken = await refreshSpotifyAccessToken({
               spotify_refresh_token: data.spotify_token_info.refresh_token,
             });
             if (accessToken) {
               data.spotify_token_info.access_token = accessToken;
-              data.spotify_token_info.expires_in =
+              data.spotify_token_info.expires_at =
                 Date.now() + accessToken.expires_in * 1000;
             }
           }
@@ -45,7 +46,7 @@ const useAuth = () => {
             });
             if (accessToken) {
               data.google_token_info.access_token = accessToken;
-              data.google_token_info.expires_in =
+              data.google_token_info.expires_at =
                 Date.now() + accessToken.expires_in * 1000;
             }
           }
