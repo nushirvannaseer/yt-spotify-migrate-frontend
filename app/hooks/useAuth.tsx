@@ -21,10 +21,11 @@ const useAuth = () => {
         );
         const data = await response.json();
         if (data.spotify_token_info && !data.current_user) {
+          console.log("spotify token info present but user not logged in");
           data.spotify_token_info = null;
           document.cookie =
             "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-          setUser(null);
+          setUser(data);
           throw new Error("Spotify token info present but user not logged in");
         }
         if (data.spotify_token_info) {
