@@ -139,6 +139,7 @@ const Playlist = ({ params }: { params: { playlistId: string } }) => {
               image={song.image}
               isSelected={isSongSelected(song)}
               isSpotify={false}
+              url={song.url}
             />
           </div>
         ))}

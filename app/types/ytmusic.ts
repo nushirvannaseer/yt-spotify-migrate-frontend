@@ -26,6 +26,7 @@ export interface YouTubeSong {
   artist: string;
   album: string;
   image: string;
+  url: string;
 }
 
 export interface YouTubePlaylistSongsResponse {
