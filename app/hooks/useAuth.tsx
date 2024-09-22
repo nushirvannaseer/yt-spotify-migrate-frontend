@@ -44,7 +44,16 @@ const useAuth = () => {
             }
           }
         }
-        setUser(data);
+        if (
+          data.google_token_info ||
+          (data.current_user && data.spotify_token_info)
+        ) {
+          setUser(data);
+        } else {
+          setUser(null);
+          document.cookie =
+            "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        }
       } catch (error) {
         setError(error as ErrorResponse);
       } finally {

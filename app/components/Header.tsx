@@ -60,8 +60,8 @@ function Header({ user }: { user: UserSession }) {
               </AvatarFallback>
             </Avatar>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-20 border-0 bg-primary-foreground rounded-lg">
-            <DropdownMenuGroup className=" rounded-lg">
+          <DropdownMenuContent className="w-20 border-0 bg-primary-foreground hover:!bg-primary-foreground/90 rounded-lg">
+            <DropdownMenuGroup className="hover:!bg-primary-foreground/90 rounded-lg">
               <DropdownMenuItem
                 onClick={async () => {
                   try {
@@ -74,7 +74,7 @@ function Header({ user }: { user: UserSession }) {
                     window.location.reload();
                   }
                 }}
-                className="cursor-pointer hover:!bg-popover-foreground"
+                className="cursor-pointer  hover:!bg-primary-foreground/90"
               >
                 <span className="text-white">Logout</span>
               </DropdownMenuItem>
