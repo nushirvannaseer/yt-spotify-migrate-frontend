@@ -52,6 +52,7 @@ const useAuth = () => {
             }
           }
         }
+        setUser(data);
       } catch (error) {
         setError(error as ErrorResponse);
         setUser(null);
