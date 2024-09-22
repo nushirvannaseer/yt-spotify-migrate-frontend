@@ -26,7 +26,6 @@ const useAuth = () => {
           document.cookie =
             "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
           setUser(data);
-          throw new Error("Spotify token info present but user not logged in");
         }
         if (data.spotify_token_info) {
           if (Date.now() >= data.spotify_token_info.expires_at) {
