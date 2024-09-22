@@ -20,6 +20,13 @@ const useAuth = () => {
           }
         );
         const data = await response.json();
+        if (data.spotify_token_info && !data.current_user) {
+          data.spotify_token_info = null;
+          document.cookie =
+            "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          setUser(null);
+          throw new Error("Spotify token info present but user not logged in");
+        }
         if (data.spotify_token_info) {
           if (Date.now() <= data.spotify_token_info.expires_at) {
             const accessToken = await refreshSpotifyAccessToken({
@@ -44,18 +51,9 @@ const useAuth = () => {
             }
           }
         }
-        if (
-          data.google_token_info ||
-          (data.current_user && data.spotify_token_info)
-        ) {
-          setUser(data);
-        } else {
-          setUser(null);
-          document.cookie =
-            "session=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        }
       } catch (error) {
         setError(error as ErrorResponse);
+        setUser(null);
       } finally {
         setLoading(false);
       }
