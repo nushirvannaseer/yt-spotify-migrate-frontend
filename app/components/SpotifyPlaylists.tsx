@@ -3,7 +3,7 @@
 import React from "react";
 import { getSpotifyPlaylists } from "../lib/api/spotify";
 import { useRouter } from "next/navigation";
-import { SpotifyPlaylistItem, SpotifyPlaylistResponse } from "../types/spotify";
+import { SpotifyPlaylistItem } from "../types/spotify";
 import Spotify from "@/components/svg/spotify.svg";
 import PlaylistItem from "./PlaylistItem";
 import { useQuery } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ const SpotifyPlaylists = () => {
     data: playlists,
     isLoading,
     error,
-  } = useQuery<SpotifyPlaylistResponse>({
+  } = useQuery<SpotifyPlaylistItem[]>({
     queryKey: ["spotify-playlists"],
     queryFn: getSpotifyPlaylists,
   });
@@ -34,7 +34,7 @@ const SpotifyPlaylists = () => {
       {isLoading && <Loading fill="green-500" />}
       <div className="p-5 mt-0 w-full h-[70vh] overflow-y-auto ">
         <div className="my-2">
-          {playlists?.items?.map((playlist: SpotifyPlaylistItem) => (
+          {playlists?.map((playlist: SpotifyPlaylistItem) => (
             <PlaylistItem
               isSpotify={true}
               key={playlist.id}

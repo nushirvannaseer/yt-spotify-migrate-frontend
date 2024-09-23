@@ -44,17 +44,6 @@ export interface SpotifyPlaylistItem {
   uri: string;
 }
 
-// Root object of the playlist response
-export interface SpotifyPlaylistResponse {
-  href: string;
-  items: SpotifyPlaylistItem[];
-  limit: number;
-  next: string | null;
-  offset: number;
-  previous: string | null;
-  total: number;
-}
-
 export interface SpotifySong {
   id: string;
   name: string;
